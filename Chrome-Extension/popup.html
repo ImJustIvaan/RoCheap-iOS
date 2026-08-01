@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      padding: 0; 
+      margin: 0; 
+      width: 260px; 
+      background: #f8f9fa; 
+      color: #333; 
+    }
+    
+    .header { 
+      background: #3ba55c; 
+      color: white; 
+      padding: 16px; 
+      text-align: center; 
+      font-weight: 800; 
+      font-size: 18px; 
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .header-highlight { color: #fbe23e; }
+
+    .container { padding: 15px; }
+
+    /* Buy Section (Always visible now) */
+    #buySection { margin-bottom: 20px; text-align: center; }
+    .price-label { 
+      font-size: 15px; 
+      font-weight: 800; 
+      color: #333; 
+      margin-bottom: 12px; 
+      background: white; 
+      padding: 10px; 
+      border-radius: 6px; 
+      border-left: 4px solid #fbe23e;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    #buyBtn { 
+      width: 100%; 
+      padding: 12px; 
+      background: #3ba55c; 
+      color: white; 
+      border: none; 
+      border-radius: 8px; 
+      font-size: 16px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      transition: 0.1s; 
+      box-shadow: 0 4px 0 #287a3e; 
+      opacity: 0.5; /* Starts slightly faded until a price is found */
+    }
+    #buyBtn:not([disabled]):hover { background: #329350; transform: translateY(2px); box-shadow: 0 2px 0 #287a3e; }
+    #buyBtn:not([disabled]):active { transform: translateY(4px); box-shadow: none; }
+    
+    #statusMessage { 
+      display: none; 
+      text-align: center; 
+      font-size: 13px; 
+      color: #3ba55c; 
+      font-weight: bold; 
+      margin-top: 10px; 
+    }
+
+    /* Config Dropdown Menu */
+    .config-card { 
+      background: white; 
+      border: 1px solid #e0e0e0; 
+      border-radius: 8px; 
+      overflow: hidden; 
+    }
+    .config-header { 
+      padding: 12px 15px; 
+      background: #fff; 
+      color: #555; 
+      font-weight: bold; 
+      font-size: 13px; 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      user-select: none; 
+    }
+    .config-header:hover { background: #f4f5f7; }
+    .config-body { 
+      padding: 15px; 
+      display: none; 
+      border-top: 1px solid #e0e0e0; 
+      background: #fafafa; 
+    }
+    
+    input { 
+      width: 100%; 
+      padding: 10px; 
+      border: 1px solid #ccc; 
+      border-radius: 6px; 
+      box-sizing: border-box; 
+      margin-bottom: 10px; 
+      font-size: 14px; 
+      text-align: center; 
+      outline: none; 
+    }
+    input:focus { border-color: #3ba55c; }
+    #saveBtn { 
+      width: 100%; 
+      padding: 10px; 
+      background: #444; 
+      color: white; 
+      border: none; 
+      border-radius: 6px; 
+      font-weight: bold; 
+      cursor: pointer; 
+      transition: 0.2s; 
+    }
+    #saveBtn:hover { background: #222; }
+
+    .arrow { transition: transform 0.2s; font-size: 10px; }
+    .open .arrow { transform: rotate(180deg); }
+    
+    /* NEW: Footer Styling */
+    .footer {
+      text-align: center;
+      font-size: 10px;
+      color: #888;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    Ro<span class="header-highlight">Cheap</span>
+  </div>
+  
+  <div class="container">
+    <div id="buySection">
+      <div id="priceDisplay" class="price-label">Scanning Page...</div>
+      <button id="buyBtn" disabled>Buy With 40% Off</button>
+      <div id="statusMessage">ID Copied! Opening App...</div>
+    </div>
+
+    <div class="config-card">
+      <div class="config-header" id="configToggle">
+        <span>⚙️ Configuration</span>
+        <span class="arrow">▼</span>
+      </div>
+      <div class="config-body" id="configBody">
+        <input id="placeId" type="text" placeholder="Enter Place ID">
+        <button id="saveBtn">Save ID</button>
+      </div>
+    </div>
+    
+    <div class="footer">Made By ImJustIvaan &copy; 2026 Version 1.5</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
