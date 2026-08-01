@@ -95,3 +95,109 @@ jobs:
         with:
           name: RoCheap-unsigned-ipa
           path: RoCheap-unsigned.ipa
+
+  sign-and-package:
+    runs-on: macos-latest
+    if: ${{ vars.SIGNING_CONFIGURED == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Import signing certificate and provisioning profiles
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          APP_PROVISION_PROFILE_BASE64: ${{ secrets.APP_PROVISION_PROFILE_BASE64 }}
+          EXTENSION_PROVISION_PROFILE_BASE64: ${{ secrets.EXTENSION_PROVISION_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          CERT_PATH="$RUNNER_TEMP/build_certificate.p12"
+          APP_PP_PATH="$RUNNER_TEMP/app.mobileprovision"
+          EXT_PP_PATH="$RUNNER_TEMP/extension.mobileprovision"
+          KEYCHAIN_PATH="$RUNNER_TEMP/signing.keychain-db"
+
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o "$CERT_PATH"
+          echo -n "$APP_PROVISION_PROFILE_BASE64" | base64 --decode -o "$APP_PP_PATH"
+          echo -n "$EXTENSION_PROVISION_PROFILE_BASE64" | base64 --decode -o "$EXT_PP_PATH"
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$CERT_PATH" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security list-keychain -d user -s "$KEYCHAIN_PATH" $(security list-keychains -d user | sed 's/"//g')
+
+          mkdir -p ~/Library/MobileDevice/"Provisioning Profiles"
+          cp "$APP_PP_PATH" ~/Library/MobileDevice/"Provisioning Profiles"/app.mobileprovision
+          cp "$EXT_PP_PATH" ~/Library/MobileDevice/"Provisioning Profiles"/extension.mobileprovision
+
+      - name: Read provisioning profile UUIDs and team
+        id: profiles
+        run: |
+          extract_uuid() {
+            security cms -D -i "$1" | plutil -extract UUID xml1 -o - - | sed -n 's/.*<string>\(.*\)<\/string>.*/\1/p'
+          }
+          extract_team() {
+            security cms -D -i "$1" | plutil -extract TeamIdentifier.0 xml1 -o - - | sed -n 's/.*<string>\(.*\)<\/string>.*/\1/p'
+          }
+          APP_UUID=$(extract_uuid ~/Library/MobileDevice/"Provisioning Profiles"/app.mobileprovision)
+          EXT_UUID=$(extract_uuid ~/Library/MobileDevice/"Provisioning Profiles"/extension.mobileprovision)
+          TEAM_ID=$(extract_team ~/Library/MobileDevice/"Provisioning Profiles"/app.mobileprovision)
+          echo "app_uuid=$APP_UUID" >> "$GITHUB_OUTPUT"
+          echo "ext_uuid=$EXT_UUID" >> "$GITHUB_OUTPUT"
+          echo "team_id=$TEAM_ID" >> "$GITHUB_OUTPUT"
+          echo "Resolved team: $TEAM_ID, app profile: $APP_UUID, extension profile: $EXT_UUID"
+
+      - name: Archive (signed)
+        run: |
+          xcodebuild \
+            -project RoCheap.xcodeproj \
+            -scheme RoCheap \
+            -sdk iphoneos \
+            -destination "generic/platform=iOS" \
+            -archivePath "$RUNNER_TEMP/RoCheap.xcarchive" \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="${{ steps.profiles.outputs.team_id }}" \
+            PROVISIONING_PROFILE_SPECIFIER="${{ steps.profiles.outputs.app_uuid }}" \
+            RoCheapExtension:PROVISIONING_PROFILE_SPECIFIER="${{ steps.profiles.outputs.ext_uuid }}" \
+            archive
+
+      - name: Write ExportOptions.plist
+        run: |
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>development</string>
+            <key>teamID</key>
+            <string>${{ steps.profiles.outputs.team_id }}</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>com.imjustivaan.RoCheap</key>
+              <string>${{ steps.profiles.outputs.app_uuid }}</string>
+              <key>com.imjustivaan.RoCheap.Extension</key>
+              <string>${{ steps.profiles.outputs.ext_uuid }}</string>
+            </dict>
+          </dict>
+          </plist>
+          EOF
+
+      - name: Export signed .ipa
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/RoCheap.xcarchive" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist"
+          cp "$RUNNER_TEMP/export/RoCheap.ipa" RoCheap-signed.ipa
+
+      - name: Upload signed .ipa artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RoCheap-signed-ipa
+          path: RoCheap-signed.ipa
