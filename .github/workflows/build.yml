@@ -178,6 +178,35 @@ jobs:
             -archivePath "$RUNNER_TEMP/RoCheap.xcarchive" \
             archive
 
+      - name: Diagnose extension appex on failure
+        if: failure()
+        run: |
+          APPEX=$(find /Users/runner/Library/Developer/Xcode/DerivedData -type d -name "RoCheapExtension.appex" -path "*UninstalledProducts*" | head -1)
+          echo "Found: $APPEX"
+          ls -la "$APPEX"
+
+          echo "--- embedded.mobileprovision: size + security cms -D ---"
+          ls -la "$APPEX/embedded.mobileprovision" || echo "MISSING"
+          security cms -D -i "$APPEX/embedded.mobileprovision" > /tmp/decoded_profile.plist 2>&1 || echo "security cms -D FAILED"
+          head -c 500 /tmp/decoded_profile.plist
+
+          echo ""
+          echo "--- xcent entitlements file ---"
+          XCENT=$(find /Users/runner/Library/Developer/Xcode/DerivedData -name "RoCheapExtension.appex.xcent" | head -1)
+          echo "Found: $XCENT"
+          cat "$XCENT" || echo "MISSING"
+
+          echo ""
+          echo "--- nested binaries signed status ---"
+          for f in "$APPEX/RoCheapExtension" "$APPEX/RoCheapExtension.debug.dylib" "$APPEX/__preview.dylib"; do
+            echo "== $f =="
+            codesign -dv "$f" 2>&1 || true
+          done
+
+          echo ""
+          echo "--- direct codesign retry with verbose output ---"
+          codesign --force --sign 919D82B7F6975463D8B975E855F464CF84B2DC91 --verbose=4 "$APPEX" 2>&1 || true
+
       - name: Write ExportOptions.plist
         run: |
           cat > "$RUNNER_TEMP/ExportOptions.plist" <<EOF
