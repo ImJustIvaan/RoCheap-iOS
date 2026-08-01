@@ -159,9 +159,9 @@ jobs:
             -destination "generic/platform=iOS" \
             -archivePath "$RUNNER_TEMP/RoCheap.xcarchive" \
             CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="Apple Distribution" \
-            DEVELOPMENT_TEAM="${{ steps.profiles.outputs.team_id }}" \
-            PROVISIONING_PROFILE_SPECIFIER="${{ steps.profiles.outputs.app_uuid }}" \
+            RoCheap:CODE_SIGN_IDENTITY="Apple Distribution" \
+            RoCheap:DEVELOPMENT_TEAM="${{ steps.profiles.outputs.team_id }}" \
+            RoCheap:PROVISIONING_PROFILE_SPECIFIER="${{ steps.profiles.outputs.app_uuid }}" \
             RoCheapExtension:CODE_SIGN_IDENTITY="Apple Distribution" \
             RoCheapExtension:DEVELOPMENT_TEAM="${{ steps.profiles.outputs.team_id }}" \
             RoCheapExtension:PROVISIONING_PROFILE_SPECIFIER="${{ steps.profiles.outputs.ext_uuid }}" \
