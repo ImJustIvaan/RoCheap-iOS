@@ -163,9 +163,11 @@
 				TargetAttributes = {
 					7C134AF7937F4638B9087AEB = {
 						CreatedOnToolsVersion = 15.2;
+						ProvisioningStyle = Manual;
 					};
 					B19F8354F07A4D8FA8D0CA3E = {
 						CreatedOnToolsVersion = 15.2;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
