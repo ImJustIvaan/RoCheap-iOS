@@ -5,3 +5,5 @@ DerivedData/
 xcuserdata/
 *.xcworkspace/xcuserdata/
 .swiftpm/
+*.ipa
+*.xcarchive
