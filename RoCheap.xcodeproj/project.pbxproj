@@ -12,7 +12,8 @@
 		8DBBDDB43A59447D8AD8842B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA92AE67964E4A16AB4968F1 /* Assets.xcassets */; };
 		D3A3B9DD58574350A3A9AD39 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961E485EDC804CC98BB0E5CC /* SafariWebExtensionHandler.swift */; };
 		7EAD35181D834F8893846C8B /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 5CAB54A9FFB64FE0BF78891D /* Resources */; };
-		3FDCC3C274AA4498AF1F35A6 /* RoCheap Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FF1CB2776DD64C8B944BAA34 /* RoCheap Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3FDCC3C274AA4498AF1F35A6 /* RoCheapExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FF1CB2776DD64C8B944BAA34 /* RoCheapExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		518365D44B474EF2941FF367 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8C12DF5F9CDA4497824B620D /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -21,7 +22,7 @@
 			containerPortal = 9F5C204F45A84365A9EF8F60 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B19F8354F07A4D8FA8D0CA3E;
-			remoteInfo = "RoCheap Extension";
+			remoteInfo = "RoCheapExtension";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -32,7 +33,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				3FDCC3C274AA4498AF1F35A6 /* RoCheap Extension.appex in Embed Foundation Extensions */,
+				3FDCC3C274AA4498AF1F35A6 /* RoCheapExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,7 +49,8 @@
 		961E485EDC804CC98BB0E5CC /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		5CAB54A9FFB64FE0BF78891D /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		6F9BC5338F9D4B64914A7151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FF1CB2776DD64C8B944BAA34 /* RoCheap Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RoCheap Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF1CB2776DD64C8B944BAA34 /* RoCheapExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RoCheapExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C12DF5F9CDA4497824B620D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				F743A4F2E0C04DB0A243F9C2 /* RoCheap */,
-				19C111D319394FE18D99F0F1 /* RoCheap Extension */,
+				19C111D319394FE18D99F0F1 /* RoCheapExtension */,
 				0E123020E7D647BB826878C5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,21 +91,22 @@
 			path = RoCheap;
 			sourceTree = "<group>";
 		};
-		19C111D319394FE18D99F0F1 /* RoCheap Extension */ = {
+		19C111D319394FE18D99F0F1 /* RoCheapExtension */ = {
 			isa = PBXGroup;
 			children = (
 				961E485EDC804CC98BB0E5CC /* SafariWebExtensionHandler.swift */,
 				5CAB54A9FFB64FE0BF78891D /* Resources */,
 				6F9BC5338F9D4B64914A7151 /* Info.plist */,
+				8C12DF5F9CDA4497824B620D /* PrivacyInfo.xcprivacy */,
 			);
-			path = "RoCheap Extension";
+			path = "RoCheapExtension";
 			sourceTree = "<group>";
 		};
 		0E123020E7D647BB826878C5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				A8249B9EE44D450D92869D59 /* RoCheap.app */,
-				FF1CB2776DD64C8B944BAA34 /* RoCheap Extension.appex */,
+				FF1CB2776DD64C8B944BAA34 /* RoCheapExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,9 +133,9 @@
 			productReference = A8249B9EE44D450D92869D59 /* RoCheap.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B19F8354F07A4D8FA8D0CA3E /* RoCheap Extension */ = {
+		B19F8354F07A4D8FA8D0CA3E /* RoCheapExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1EE4454431324FF8AD8879E6 /* Build configuration list for PBXNativeTarget "RoCheap Extension" */;
+			buildConfigurationList = 1EE4454431324FF8AD8879E6 /* Build configuration list for PBXNativeTarget "RoCheapExtension" */;
 			buildPhases = (
 				383F9DE975F84728ACC6141F /* Sources */,
 				29CF74B64F7F4985A86CB07F /* Frameworks */,
@@ -142,9 +145,9 @@
 			);
 			dependencies = (
 			);
-			name = "RoCheap Extension";
-			productName = "RoCheap Extension";
-			productReference = FF1CB2776DD64C8B944BAA34 /* RoCheap Extension.appex */;
+			name = "RoCheapExtension";
+			productName = "RoCheapExtension";
+			productReference = FF1CB2776DD64C8B944BAA34 /* RoCheapExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -179,7 +182,7 @@
 			projectRoot = "";
 			targets = (
 				7C134AF7937F4638B9087AEB /* RoCheap */,
-				B19F8354F07A4D8FA8D0CA3E /* RoCheap Extension */,
+				B19F8354F07A4D8FA8D0CA3E /* RoCheapExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -198,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EAD35181D834F8893846C8B /* Resources in Resources */,
+				518365D44B474EF2941FF367 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +230,7 @@
 /* Begin PBXTargetDependency section */
 		1103BB41DDD4404D8637F499 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B19F8354F07A4D8FA8D0CA3E /* RoCheap Extension */;
+			target = B19F8354F07A4D8FA8D0CA3E /* RoCheapExtension */;
 			targetProxy = 7F952081ABEB481CB015864A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -402,7 +406,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "RoCheap Extension/Info.plist";
+				INFOPLIST_FILE = "RoCheapExtension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -425,7 +429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "RoCheap Extension/Info.plist";
+				INFOPLIST_FILE = "RoCheapExtension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -463,7 +467,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1EE4454431324FF8AD8879E6 /* Build configuration list for PBXNativeTarget "RoCheap Extension" */ = {
+		1EE4454431324FF8AD8879E6 /* Build configuration list for PBXNativeTarget "RoCheapExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3EB6D1D15B984D5294C21E81 /* Debug */,
