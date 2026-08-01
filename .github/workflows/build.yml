@@ -172,7 +172,7 @@ jobs:
           <plist version="1.0">
           <dict>
             <key>method</key>
-            <string>development</string>
+            <string>app-store-connect</string>
             <key>teamID</key>
             <string>${{ steps.profiles.outputs.team_id }}</string>
             <key>signingStyle</key>
