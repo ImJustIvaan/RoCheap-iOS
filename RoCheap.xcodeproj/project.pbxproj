@@ -13,7 +13,6 @@
 		D3A3B9DD58574350A3A9AD39 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961E485EDC804CC98BB0E5CC /* SafariWebExtensionHandler.swift */; };
 		7EAD35181D834F8893846C8B /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 5CAB54A9FFB64FE0BF78891D /* Resources */; };
 		3FDCC3C274AA4498AF1F35A6 /* RoCheapExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FF1CB2776DD64C8B944BAA34 /* RoCheapExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		518365D44B474EF2941FF367 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8C12DF5F9CDA4497824B620D /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +49,6 @@
 		5CAB54A9FFB64FE0BF78891D /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		6F9BC5338F9D4B64914A7151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF1CB2776DD64C8B944BAA34 /* RoCheapExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RoCheapExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C12DF5F9CDA4497824B620D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +95,6 @@
 				961E485EDC804CC98BB0E5CC /* SafariWebExtensionHandler.swift */,
 				5CAB54A9FFB64FE0BF78891D /* Resources */,
 				6F9BC5338F9D4B64914A7151 /* Info.plist */,
-				8C12DF5F9CDA4497824B620D /* PrivacyInfo.xcprivacy */,
 			);
 			path = "RoCheapExtension";
 			sourceTree = "<group>";
@@ -201,7 +198,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EAD35181D834F8893846C8B /* Resources in Resources */,
-				518365D44B474EF2941FF367 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
