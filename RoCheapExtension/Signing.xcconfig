@@ -1,3 +1,4 @@
 // Overwritten by CI (sign-and-package job) with real signing settings
 // before a signed archive build. Left as Automatic for local/unsigned builds.
 CODE_SIGN_STYLE = Automatic
+CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO
