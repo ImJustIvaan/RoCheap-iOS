@@ -19,12 +19,15 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
-      - name: Build (RoCheap app + extension, unsigned)
+      - name: Build (RoCheap app + extension, ad-hoc simulator signing)
         run: |
           xcodebuild \
             -project RoCheap.xcodeproj \
             -scheme RoCheap \
             -destination "generic/platform=iOS Simulator" \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="" \
+            CODE_SIGNING_REQUIRED=YES \
+            CODE_SIGNING_ALLOWED=YES \
             build
