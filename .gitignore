@@ -7,3 +7,9 @@ xcuserdata/
 .swiftpm/
 *.ipa
 *.xcarchive
+*.zip
+*.cer
+*.p12
+*.mobileprovision
+*.certSigningRequest
+*.key
