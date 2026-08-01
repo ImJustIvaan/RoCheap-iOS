@@ -49,6 +49,8 @@
 		5CAB54A9FFB64FE0BF78891D /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		6F9BC5338F9D4B64914A7151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF1CB2776DD64C8B944BAA34 /* RoCheapExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RoCheapExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8607E3FDC688407FB3AD4BE8 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
+		9B0E623E1A6C4B59A8FD5B75 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				BBA551839E7043CB80EC8ABE /* ContentView.swift */,
 				DA92AE67964E4A16AB4968F1 /* Assets.xcassets */,
 				6E4537671A434ADEA7B04180 /* Info.plist */,
+				8607E3FDC688407FB3AD4BE8 /* Signing.xcconfig */,
 			);
 			path = RoCheap;
 			sourceTree = "<group>";
@@ -95,6 +98,7 @@
 				961E485EDC804CC98BB0E5CC /* SafariWebExtensionHandler.swift */,
 				5CAB54A9FFB64FE0BF78891D /* Resources */,
 				6F9BC5338F9D4B64914A7151 /* Info.plist */,
+				9B0E623E1A6C4B59A8FD5B75 /* Signing.xcconfig */,
 			);
 			path = "RoCheapExtension";
 			sourceTree = "<group>";
@@ -373,10 +377,10 @@
 		};
 		F8514F079C8643D780A885DE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8607E3FDC688407FB3AD4BE8 /* Signing.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = RoCheap/Info.plist;
@@ -421,8 +425,8 @@
 		};
 		0C52C2A1CD13462F8BA7E8CB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9B0E623E1A6C4B59A8FD5B75 /* Signing.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "RoCheapExtension/Info.plist";

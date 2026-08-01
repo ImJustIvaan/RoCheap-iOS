@@ -150,6 +150,23 @@ jobs:
           echo "team_id=$TEAM_ID" >> "$GITHUB_OUTPUT"
           echo "Resolved team: $TEAM_ID, app profile: $APP_UUID, extension profile: $EXT_UUID"
 
+      - name: Write per-target Signing.xcconfig files
+        run: |
+          cat > RoCheap/Signing.xcconfig <<EOF
+          CODE_SIGN_STYLE = Manual
+          CODE_SIGN_IDENTITY = Apple Distribution
+          DEVELOPMENT_TEAM = ${{ steps.profiles.outputs.team_id }}
+          PROVISIONING_PROFILE_SPECIFIER = ${{ steps.profiles.outputs.app_uuid }}
+          EOF
+          cat > RoCheapExtension/Signing.xcconfig <<EOF
+          CODE_SIGN_STYLE = Manual
+          CODE_SIGN_IDENTITY = Apple Distribution
+          DEVELOPMENT_TEAM = ${{ steps.profiles.outputs.team_id }}
+          PROVISIONING_PROFILE_SPECIFIER = ${{ steps.profiles.outputs.ext_uuid }}
+          EOF
+          echo "--- RoCheap/Signing.xcconfig ---"; cat RoCheap/Signing.xcconfig
+          echo "--- RoCheapExtension/Signing.xcconfig ---"; cat RoCheapExtension/Signing.xcconfig
+
       - name: Archive (signed)
         run: |
           xcodebuild \
@@ -158,13 +175,6 @@ jobs:
             -sdk iphoneos \
             -destination "generic/platform=iOS" \
             -archivePath "$RUNNER_TEMP/RoCheap.xcarchive" \
-            CODE_SIGN_STYLE=Manual \
-            RoCheap:CODE_SIGN_IDENTITY="Apple Distribution" \
-            RoCheap:DEVELOPMENT_TEAM="${{ steps.profiles.outputs.team_id }}" \
-            RoCheap:PROVISIONING_PROFILE_SPECIFIER="${{ steps.profiles.outputs.app_uuid }}" \
-            RoCheapExtension:CODE_SIGN_IDENTITY="Apple Distribution" \
-            RoCheapExtension:DEVELOPMENT_TEAM="${{ steps.profiles.outputs.team_id }}" \
-            RoCheapExtension:PROVISIONING_PROFILE_SPECIFIER="${{ steps.profiles.outputs.ext_uuid }}" \
             archive
 
       - name: Write ExportOptions.plist
