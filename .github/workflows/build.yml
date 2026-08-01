@@ -70,3 +70,28 @@ jobs:
 
           echo "App build failed on something other than ValidateEmbeddedBinary alone."
           exit "$status"
+
+      - name: Package unsigned .ipa
+        run: |
+          APP=$(find /Users/runner/Library/Developer/Xcode/DerivedData -type d -name "RoCheap.app" -path "*Debug-iphoneos*" | head -1)
+          if [ -z "$APP" ]; then
+            echo "Couldn't find RoCheap.app in DerivedData"
+            exit 1
+          fi
+          echo "Found app: $APP"
+
+          PAYLOAD=/tmp/Payload
+          rm -rf "$PAYLOAD"
+          mkdir -p "$PAYLOAD"
+          cp -R "$APP" "$PAYLOAD/RoCheap.app"
+
+          cd /tmp
+          zip -qr RoCheap-unsigned.ipa Payload
+          mv RoCheap-unsigned.ipa "$GITHUB_WORKSPACE/RoCheap-unsigned.ipa"
+          echo "Built $GITHUB_WORKSPACE/RoCheap-unsigned.ipa"
+
+      - name: Upload .ipa artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RoCheap-unsigned-ipa
+          path: RoCheap-unsigned.ipa
