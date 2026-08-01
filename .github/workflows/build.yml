@@ -29,3 +29,16 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             build
+
+      - name: Inspect embedded extension bundle on failure
+        if: failure()
+        run: |
+          APPEX=$(find /Users/runner/Library/Developer/Xcode/DerivedData -type d -name "RoCheapExtension.appex" -path "*PlugIns*" | head -1)
+          echo "Found: $APPEX"
+          ls -la "$APPEX" || true
+          echo "--- Info.plist (plutil -p) ---"
+          plutil -p "$APPEX/Info.plist" || echo "plutil failed to read it"
+          echo "--- file ---"
+          file "$APPEX/Info.plist" || true
+          echo "--- xxd head ---"
+          xxd "$APPEX/Info.plist" | head -5 || true
